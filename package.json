@@ -1,0 +1,38 @@
+{
+  "name": "itcompare.github.io",
+  "version": "1.0.0",
+  "description": "itcompare官网",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev mydocs --cache .cache",
+    "build": "node --max_old_space_size=4096 ./node_modules/vuepress/cli.js build mydocs",
+    "version": "node -v"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.ximalaya.com/business/business-gateway-open-doc.git"
+  },
+  "author": "fanghuabao",
+  "license": "ISC",
+  "devDependencies": {
+    "@vuepress/plugin-active-header-links": "^1.8.0",
+    "@vuepress/plugin-back-to-top": "^1.0.0-rc.1",
+    "core-js": "^3.13.1",
+    "cross-env": "^7.0.3",
+    "cross-spawn": "^7.0.3",
+    "vue-google-adsense": "^1.9.2",
+    "vue-script2": "^2.1.0",
+    "vuepress": "^1.8.2",
+    "vuepress-theme-reco": "^1.6.6"
+  },
+  "dependencies": {
+    "async-validator": "^1.11.5",
+    "element-ui": "^2.15.0",
+    "highlight.js": "^10.6.0",
+    "vue-copy-to-clipboard": "^1.0.3",
+    "vuepress-plugin-code-copy": "^1.0.6"
+  },
+  "resolutions": {
+    "optimize-css-assets-webpack-plugin": "5.0.6"
+  }
+}
