@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>RocketMQ部署架构和设置步骤 | itcompare</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/logo/small.png">
+    <meta name="description" content="本站致力于对it中相关技术进行比较，解决从业人员技术选型中的类比的问题！">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <link rel="preload" href="/assets/css/0.styles.a67bd29c.css" as="style"><link rel="preload" href="/assets/js/app.118af569.js" as="script"><link rel="preload" href="/assets/js/4.67be75a0.js" as="script"><link rel="preload" href="/assets/js/1.792b16dc.js" as="script"><link rel="preload" href="/assets/js/21.d7c3647b.js" as="script"><link rel="prefetch" href="/assets/js/10.37c0448c.js"><link rel="prefetch" href="/assets/js/11.cace3b10.js"><link rel="prefetch" href="/assets/js/12.d9bc9791.js"><link rel="prefetch" href="/assets/js/13.683929c7.js"><link rel="prefetch" href="/assets/js/14.78959e5d.js"><link rel="prefetch" href="/assets/js/15.8994a659.js"><link rel="prefetch" href="/assets/js/16.f6c00135.js"><link rel="prefetch" href="/assets/js/17.171d46f1.js"><link rel="prefetch" href="/assets/js/18.8794148c.js"><link rel="prefetch" href="/assets/js/19.9e43aab3.js"><link rel="prefetch" href="/assets/js/2.903f4fa2.js"><link rel="prefetch" href="/assets/js/20.6905caf1.js"><link rel="prefetch" href="/assets/js/22.8b64adcd.js"><link rel="prefetch" href="/assets/js/23.218829ed.js"><link rel="prefetch" href="/assets/js/24.7a91a070.js"><link rel="prefetch" href="/assets/js/25.32f05878.js"><link rel="prefetch" href="/assets/js/26.76592501.js"><link rel="prefetch" href="/assets/js/27.53696fe0.js"><link rel="prefetch" href="/assets/js/28.44d97c15.js"><link rel="prefetch" href="/assets/js/29.1ece844e.js"><link rel="prefetch" href="/assets/js/30.14e8d732.js"><link rel="prefetch" href="/assets/js/31.839c79d7.js"><link rel="prefetch" href="/assets/js/32.3a32360a.js"><link rel="prefetch" href="/assets/js/33.e9a2d5f7.js"><link rel="prefetch" href="/assets/js/34.6abf2aa6.js"><link rel="prefetch" href="/assets/js/35.fd84dd74.js"><link rel="prefetch" href="/assets/js/36.f11bbda9.js"><link rel="prefetch" href="/assets/js/37.3c7513e8.js"><link rel="prefetch" href="/assets/js/38.062bd50c.js"><link rel="prefetch" href="/assets/js/39.d9b43bba.js"><link rel="prefetch" href="/assets/js/40.9f5b606a.js"><link rel="prefetch" href="/assets/js/41.bcc2ee2e.js"><link rel="prefetch" href="/assets/js/5.51d24843.js"><link rel="prefetch" href="/assets/js/6.f4851f59.js"><link rel="prefetch" href="/assets/js/7.084c61b2.js"><link rel="prefetch" href="/assets/js/8.dc5d91b2.js"><link rel="prefetch" href="/assets/js/9.d9b29fac.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a67bd29c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-58dedfb1><div data-v-58dedfb1><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-58dedfb1 data-v-58dedfb1><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-9b04387a data-v-58dedfb1 data-v-58dedfb1><h3 class="title" data-v-9b04387a data-v-9b04387a>itcompare</h3> <p class="description" data-v-9b04387a data-v-9b04387a>本站致力于对it中相关技术进行比较，解决从业人员技术选型中的类比的问题！</p> <label id="box" class="inputBox" data-v-9b04387a data-v-9b04387a><input type="password" value="" data-v-9b04387a> <span data-v-9b04387a>Konck! Knock!</span> <button data-v-9b04387a>OK</button></label> <div class="footer" data-v-9b04387a data-v-9b04387a><span data-v-9b04387a><i class="iconfont reco-theme" data-v-9b04387a></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-9b04387a>vuePress-theme-reco</a></span> <span data-v-9b04387a><i class="iconfont reco-copyright" data-v-9b04387a></i> <a data-v-9b04387a><span data-v-9b04387a>fanghuabao</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-58dedfb1><header class="navbar" data-v-58dedfb1><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo/small.png" alt="itcompare" class="logo"> <span class="site-name">itcompare</span></a> <div class="links"><!----> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="undefined"></i>
+  首页
+</a></div><div class="nav-item"><a href="/introduce/index.html" class="nav-link"><i class="undefined"></i>
+  指南
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/指南/" class="nav-link"><i class="undefined"></i>
+  指南
+</a></li><li class="dropdown-item"><!----> <a href="/categories/java/" class="nav-link"><i class="undefined"></i>
+  java
+</a></li><li class="dropdown-item"><!----> <a href="/categories/消息中间件/" class="nav-link"><i class="undefined"></i>
+  消息中间件
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="undefined"></i>
+  时间线
+</a></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-58dedfb1></div> <aside class="sidebar" data-v-58dedfb1><div class="personal-info-wrapper" data-v-5d033c14 data-v-58dedfb1><!----> <h3 class="name" data-v-5d033c14>
+    fanghuabao
+  </h3> <div class="num" data-v-5d033c14><div data-v-5d033c14><h3 data-v-5d033c14>30</h3> <h6 data-v-5d033c14>Articles</h6></div> <div data-v-5d033c14><h3 data-v-5d033c14>5</h3> <h6 data-v-5d033c14>Tags</h6></div></div> <ul class="social-links" data-v-5d033c14></ul> <hr data-v-5d033c14></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="undefined"></i>
+  首页
+</a></div><div class="nav-item"><a href="/introduce/index.html" class="nav-link"><i class="undefined"></i>
+  指南
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/指南/" class="nav-link"><i class="undefined"></i>
+  指南
+</a></li><li class="dropdown-item"><!----> <a href="/categories/java/" class="nav-link"><i class="undefined"></i>
+  java
+</a></li><li class="dropdown-item"><!----> <a href="/categories/消息中间件/" class="nav-link"><i class="undefined"></i>
+  消息中间件
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="undefined"></i>
+  时间线
+</a></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-9b04387a data-v-58dedfb1><h3 class="title" data-v-9b04387a data-v-9b04387a>RocketMQ部署架构和设置步骤</h3> <!----> <label id="box" class="inputBox" data-v-9b04387a data-v-9b04387a><input type="password" value="" data-v-9b04387a> <span data-v-9b04387a>Konck! Knock!</span> <button data-v-9b04387a>OK</button></label> <div class="footer" data-v-9b04387a data-v-9b04387a><span data-v-9b04387a><i class="iconfont reco-theme" data-v-9b04387a></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-9b04387a>vuePress-theme-reco</a></span> <span data-v-9b04387a><i class="iconfont reco-copyright" data-v-9b04387a></i> <a data-v-9b04387a><span data-v-9b04387a>fanghuabao</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-58dedfb1><main class="page"><section><div class="page-title"><h1 class="title">RocketMQ部署架构和设置步骤</h1> <div data-v-618f81d2><i class="iconfont reco-account" data-v-618f81d2><span data-v-618f81d2>fanghuabao</span></i> <i class="iconfont reco-date" data-v-618f81d2><span data-v-618f81d2>8/15/2022</span></i> <!----> <i class="tags iconfont reco-tag" data-v-618f81d2><span class="tag-item" data-v-618f81d2>RocketMQ</span></i></div></div> <div class="theme-reco-content content__default"><h2 id="集群的设置"><a href="#集群的设置" class="header-anchor">#</a> 集群的设置</h2> <h3 id="_1-单master模式"><a href="#_1-单master模式" class="header-anchor">#</a> 1 单master模式</h3> <p>这是最简单但也是最危险的模式，一旦broker服务器重启或宕机，整个服务将不可用。 建议在生产环境中不要使用这种部署方式，在本地测试和开发可以选择这种模式。 以下是构建的步骤。</p> <p><strong>1）启动NameServer</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">### 第一步启动namesrv</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqnamesrv <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 验证namesrv是否启动成功</span>
+$ <span class="token function">tail</span> -f ~/logs/rocketmqlogs/namesrv.log
+The Name Server boot success<span class="token punctuation">..</span>.
+</code></pre></div><p>我们可以在namesrv.log 中看到'The Name Server boot success..'，表示NameServer 已成功启动。</p> <p><strong>2）启动Broker</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">### 第一步先启动broker</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> bin/mqbroker -n localhost:9876 <span class="token operator">&amp;</span>
+
+<span class="token comment">### 验证broker是否启动成功, 比如, broker的ip是192.168.1.2 然后名字是broker-a</span>
+$ <span class="token function">tail</span> -f ~/logs/rocketmqlogs/Broker.log 
+The broker<span class="token punctuation">[</span>broker-a,192.169.1.2:10911<span class="token punctuation">]</span> boot success<span class="token punctuation">..</span>.
+</code></pre></div><p>我们可以在 Broker.log 中看到“The broker[brokerName,ip:port] boot success..”，这表明 broker 已成功启动。</p> <h3 id="_2-多master模式"><a href="#_2-多master模式" class="header-anchor">#</a> 2 多Master模式</h3> <p>该模式是指所有节点都是master主节点（比如2个或3个主节点），没有slave从节点的模式。 这种模式的优缺点如下：</p> <ul><li>优点:
+<ol><li>配置简单。</li> <li>一个master节点的宕机或者重启（维护）对应用程序没有影响。</li> <li>当磁盘配置为RAID10时，消息不会丢失，因为RAID10磁盘非常可靠，即使机器不可恢复（消息异步刷盘模式的情况下，会丢失少量消息；如果消息是同步刷盘模式，不会丢失任何消息）。</li> <li>在这种模式下，性能是最高的。</li></ol></li> <li>缺点:
+<ol><li>单台机器宕机时，本机未消费的消息，直到机器恢复后才会订阅，影响消息实时性。</li></ol></li></ul> <p>多Master模式的启动步骤如下：</p> <p><strong>1）启动 NameServer</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">### 第一步先启动namesrv</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqnamesrv <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 验证namesrv是否启动成功</span>
+$ <span class="token function">tail</span> -f ~/logs/rocketmqlogs/namesrv.log
+The Name Server boot success<span class="token punctuation">..</span>.
+</code></pre></div><p><strong>2）启动 Broker 集群</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">### 比如在A机器上启动第一个Master，假设配置的NameServer IP为：192.168.1.1</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqbroker -n <span class="token number">192.168</span>.1.1:9876 -c <span class="token variable">$ROCKETMQ_HOME</span>/conf/2m-noslave/broker-a.properties <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 然后在机器B上启动第二个Master，假设配置的NameServer IP是：192.168.1.1</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqbroker -n <span class="token number">192.168</span>.1.1:9876 -c <span class="token variable">$ROCKETMQ_HOME</span>/conf/2m-noslave/broker-b.properties <span class="token operator">&amp;</span>
+
+<span class="token punctuation">..</span>.
+</code></pre></div><p>上面显示的启动命令用于单个NameServer的情况。对于多个NameServer的集群，broker 启动命令中-n参数后面的地址列表用分号隔开，例如 192.168.1.1:9876;192.161.2:9876</p> <h3 id="_3-多master多slave模式-异步复制"><a href="#_3-多master多slave模式-异步复制" class="header-anchor">#</a> 3 多Master多Slave模式-异步复制</h3> <p>每个主节点配置多个从节点，多对主从。HA采用异步复制，主节点和从节点之间有短消息延迟（毫秒）。这种模式的优缺点如下：</p> <ul><li>优点:
+<ol><li>即使磁盘损坏，也只会丢失极少的消息，不影响消息的实时性能。</li> <li>同时，当主节点宕机时，消费者仍然可以消费从节点的消息，这个过程对应用本身是透明的，不需要人为干预。</li> <li>性能几乎与多Master模式一样高。</li></ol></li> <li>缺点:
+<ol><li>主节点宕机、磁盘损坏时，会丢失少量消息。</li></ol></li></ul> <p>多主多从模式的启动步骤如下：</p> <p><strong>1）启动 NameServer</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">### 第一步先启动namesrv</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqnamesrv <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 验证namesrv是否启动成功</span>
+$ <span class="token function">tail</span> -f ~/logs/rocketmqlogs/namesrv.log
+The Name Server boot success<span class="token punctuation">..</span>.
+</code></pre></div><p><strong>2）启动 Broker 集群</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">### 例如在A机器上启动第一个Master，假设配置的NameServer IP为：192.168.1.1，端口为9876。</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqbroker -n <span class="token number">192.168</span>.1.1:9876 -c <span class="token variable">$ROCKETMQ_HOME</span>/conf/2m-2s-async/broker-a.properties <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 然后在机器B上启动第二个Master，假设配置的NameServer IP为：192.168.1.1，端口为9876。</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqbroker -n <span class="token number">192.168</span>.1.1:9876 -c <span class="token variable">$ROCKETMQ_HOME</span>/conf/2m-2s-async/broker-b.properties <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 然后在C机器上启动第一个Slave，假设配置的NameServer IP为：192.168.1.1，端口为9876。</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqbroker -n <span class="token number">192.168</span>.1.1:9876 -c <span class="token variable">$ROCKETMQ_HOME</span>/conf/2m-2s-async/broker-a-s.properties <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 最后在D机启动第二个Slave，假设配置的NameServer IP为：192.168.1.1，端口为9876。</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqbroker -n <span class="token number">192.168</span>.1.1:9876 -c <span class="token variable">$ROCKETMQ_HOME</span>/conf/2m-2s-async/broker-b-s.properties <span class="token operator">&amp;</span>
+</code></pre></div><p>上图显示了 2M-2S-Async 模式的启动命令，类似于其他 nM-nS-Async 模式。</p> <h3 id="_4-多master多slave模式-同步双写"><a href="#_4-多master多slave模式-同步双写" class="header-anchor">#</a> 4 多Master多Slave模式-同步双写</h3> <p>这种模式下，每个master节点配置多个slave节点，有多对Master-Slave。HA采用同步双写，即只有消息成功写入到主节点并复制到多个从节点，才会返回成功响应给应用程序。</p> <p>这种模式的优缺点如下：</p> <ul><li>优点:
+<ol><li>数据和服务都没有单点故障。</li> <li>在master节点关闭的情况下，消息也没有延迟。</li> <li>服务可用性和数据可用性非常高；</li></ol></li> <li>缺点:
+<ol><li>这种模式下的性能略低于异步复制模式（大约低 10%）。</li> <li>发送单条消息的RT略高，目前版本，master节点宕机后，slave节点无法自动切换到master。</li></ol></li></ul> <p>启动步骤如下：</p> <p><strong>1）启动NameServer</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">### 第一步启动namesrv</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqnamesrv <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 验证namesrv是否启动成功</span>
+$ <span class="token function">tail</span> -f ~/logs/rocketmqlogs/namesrv.log
+The Name Server boot success<span class="token punctuation">..</span>.
+</code></pre></div><p><strong>2）启动 Broker 集群</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">### 例如在A机器上启动第一个Master，假设配置的NameServer IP为：192.168.1.1，端口为9876。</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqbroker -n <span class="token number">192.168</span>.1.1:9876 -c <span class="token variable">$ROCKETMQ_HOME</span>/conf/2m-2s-sync/broker-a.properties <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 然后在B机器上启动第二个Master，假设配置的NameServer IP为：192.168.1.1，端口为9876。</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqbroker -n <span class="token number">192.168</span>.1.1:9876 -c <span class="token variable">$ROCKETMQ_HOME</span>/conf/2m-2s-sync/broker-b.properties <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 然后在C机器上启动第一个Slave，假设配置的NameServer IP为：192.168.1.1，端口为9876。</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqbroker -n <span class="token number">192.168</span>.1.1:9876 -c <span class="token variable">$ROCKETMQ_HOME</span>/conf/2m-2s-sync/broker-a-s.properties <span class="token operator">&amp;</span>
+ 
+<span class="token comment">### 最后在D机启动第二个Slave，假设配置的NameServer IP为：192.168.1.1，端口为9876。</span>
+$ <span class="token function">nohup</span> <span class="token function">sh</span> mqbroker -n <span class="token number">192.168</span>.1.1:9876 -c <span class="token variable">$ROCKETMQ_HOME</span>/conf/2m-2s-sync/broker-b-s.properties <span class="token operator">&amp;</span>
+</code></pre></div><p>上述Master和Slave是通过指定相同的config命名为“brokerName”来配对的，master节点的brokerId必须为0，slave节点的brokerId必须大于0。</p></div></section> <footer class="page-edit"><div class="edit-link"><a href="http://gitlab.ximalaya.com/business/business-gateway-open-doc/edit/task/update_doc_20220322_181890/docs/message-queue/rocketmq/Deployment.md" target="_blank" rel="noopener noreferrer">编辑</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <!----></footer> <!----> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-70e916a0><li class="level-2" data-v-70e916a0><a href="/message-queue/rocketmq/Deployment.html#集群的设置" class="sidebar-link reco-side-集群的设置" data-v-70e916a0>集群的设置</a></li><li class="level-3" data-v-70e916a0><a href="/message-queue/rocketmq/Deployment.html#_1-单master模式" class="sidebar-link reco-side-_1-单master模式" data-v-70e916a0>1 单master模式</a></li><li class="level-3" data-v-70e916a0><a href="/message-queue/rocketmq/Deployment.html#_2-多master模式" class="sidebar-link reco-side-_2-多master模式" data-v-70e916a0>2 多Master模式</a></li><li class="level-3" data-v-70e916a0><a href="/message-queue/rocketmq/Deployment.html#_3-多master多slave模式-异步复制" class="sidebar-link reco-side-_3-多master多slave模式-异步复制" data-v-70e916a0>3 多Master多Slave模式-异步复制</a></li><li class="level-3" data-v-70e916a0><a href="/message-queue/rocketmq/Deployment.html#_4-多master多slave模式-同步双写" class="sidebar-link reco-side-_4-多master多slave模式-同步双写" data-v-70e916a0>4 多Master多Slave模式-同步双写</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.118af569.js" defer></script><script src="/assets/js/4.67be75a0.js" defer></script><script src="/assets/js/1.792b16dc.js" defer></script><script src="/assets/js/21.d7c3647b.js" defer></script>
+  </body>
+</html>

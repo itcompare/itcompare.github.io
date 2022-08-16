@@ -134,7 +134,7 @@ export default defineComponent({
     border: 1px solid gainsboro;
     flex-grow: 1;
     flex-basis: 30%;
-    max-width: 30%;
+    max-width: 20%;
     transition: all .5s
     color: var(--text-color);
     margin-right 4rem;
@@ -142,7 +142,7 @@ export default defineComponent({
     background-color: bisque;
     padding: 1rem;
     h2 {
-      font-size: 1.6rem;
+      font-size: 1rem;
       font-weight: 500;
       border-bottom: none;
       padding-bottom: 0;
