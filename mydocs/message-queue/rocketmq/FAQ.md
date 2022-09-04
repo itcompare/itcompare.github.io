@@ -59,7 +59,7 @@ tags:
 
 1. **消息在服务器上可以保存多长时间？**
 
-   存储的消息将最多保存 3 天，超过 3 天未使用的消息将被删除。
+   存储的消息将最多保存 3 天，超过 3 天未使用的消息将被删除。如何修改TODO
 
 2. **消息体的大小限制是多少？**
 
@@ -119,4 +119,21 @@ tags:
 
 ## 5 其他
 1. **producer实例是如何上报到broker的，通过console后台可以某个topic下，某个producer group下的实例**
-TODO
+TODO  
+2. *RocketMQ实现读写分离了吗*  
+如果Master Broker负载很重，已经要抗10w写并发，那么此时Master Broker就会建议你从Slave Broker中拉取消息，还有就是Slave同步的比较慢，100w数据差了4w，而消费者可能都获取完96w了，那么下次还是只能从Master Broker去拉取消息，因为同步太慢，没法获取更新的消息了。
+
+3. **Master或者Slave挂掉了有什么影响？**
+1.Master Broker宕机
+
+这个时候Slave Broker有一样的数据在的，只不过可能会有部分数据没来得及同步过来，而且不能自动切换成Master Broker。
+
+4.5版本前，一旦Master故障，那么就需要手动做一些运维操作，将Slave重新修改参数配置，重启机器调整为Master Broker，所以这种Master-Slave模式不是彻底的高可用模式，没法自动切换主从。
+
+4.5版本后，引入了新的机制，叫做Dledger。
+
+这个机制是基于Raft协议实现，简单来说把Dledger融入RocketMQ之后，可以让一个Master Broker对应多个Slave Broker，也就是一份数据有多份备份，一旦Master宕机了，那么就可以在多个Slave中，通过Dledger技术和Raft协议算法选举处leader，然后直接将一个Slave Broker选举成新的Master Broker，整个过程也许只要10s或者几十秒就可以自动完成。
+
+2.Slave Broker宕机
+
+会有一点影响，但是不大，因为写入全部发送到Master Broker中，然后获取也是可以走Master Broker的，所以整体影响不大，只不过会导致读写压力都集中在Master Broker上。
